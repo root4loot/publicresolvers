@@ -31,13 +31,13 @@ func usage() {
 	w.Flush()
 }
 
-func printList(source func() ([]string, error), name string) {
+func printList(source func() ([]string, error)) {
 	list, err := source()
 	if err != nil {
-		fmt.Printf("Error fetching %s resolvers: %v\n", name, err)
+		fmt.Printf("Error fetching resolvers: %v\n", err)
 		return
 	}
-	fmt.Printf("%s resolvers:\n%s\n", name, strings.Join(list, "\n"))
+	fmt.Printf("%s\n", strings.Join(list, "\n"))
 }
 
 func main() {
@@ -66,14 +66,14 @@ func main() {
 	}
 
 	if resolvers {
-		printList(goresolvers.FetchResolvers, "Resolvers")
+		printList(goresolvers.FetchResolvers)
 	}
 
 	if trusted {
-		printList(goresolvers.FetchResolversTrusted, "Trusted")
+		printList(goresolvers.FetchResolversTrusted)
 	}
 
 	if community {
-		printList(goresolvers.FetchResolversCommunity, "Community")
+		printList(goresolvers.FetchResolversCommunity)
 	}
 }
