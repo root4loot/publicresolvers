@@ -6,7 +6,7 @@ goresolvers is a simple Go library and CLI tool for fetching DNS resolver lists 
 ## Installation
 ### Go
 ```
-go install github.com/root4loot/goresolvers/cmd
+go install github.com/root4loot/cmd/goresolvers@latest
 ```
 
 ### Docker
