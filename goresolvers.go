@@ -21,7 +21,7 @@ func fetchFile(url string) ([]string, error) {
 	scanner := bufio.NewScanner(resp.Body)
 	var lines []string
 	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
+		lines = append(lines, scanner.Text()+":53")
 	}
 
 	if err := scanner.Err(); err != nil {
