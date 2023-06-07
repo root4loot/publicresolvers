@@ -7,7 +7,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/root4loot/goresolvers"
+	"github.com/root4loot/publicresolvers"
 )
 
 func banner() {
@@ -66,14 +66,14 @@ func main() {
 	}
 
 	if resolvers {
-		printList(goresolvers.FetchResolvers)
+		printList(publicresolvers.FetchResolvers)
 	}
 
 	if trusted {
-		printList(goresolvers.FetchResolversTrusted)
+		printList(publicresolvers.FetchResolversTrusted)
 	}
 
 	if community {
-		printList(goresolvers.FetchResolversCommunity)
+		printList(publicresolvers.FetchResolversCommunity)
 	}
 }

@@ -1,24 +1,24 @@
 ![Go version](https://img.shields.io/badge/Go-v1.19-blue.svg) [![Contribute](https://img.shields.io/badge/Contribute-Welcome-green.svg)](CONTRIBUTING.md)
 
-# goresolvers
-goresolvers is a simple Go library and CLI tool for fetching DNS resolver lists from the Trickest Resolvers [repository](https://github.com/trickest/resolvers).
+# publicresolvers
+publicresolvers is a simple Go library and CLI tool for fetching DNS resolver lists from the Trickest Resolvers [repository](https://github.com/trickest/resolvers).
 
 ## Installation
 ### Go
 ```
-go install github.com/root4loot/goresolvers/cmd/goresolvers@latest
+go install github.com/root4loot/publicresolvers/cmd/publicresolvers@latest
 ```
 
 ### Docker
 ```
-git clone https://github.com/root4loot/goresolvers.git && cd goresolvers
-docker build -t goresolvers .
-docker run -it goresolvers -h
+git clone https://github.com/root4loot/publicresolvers.git && cd publicresolvers
+docker build -t publicresolvers .
+docker run -it publicresolvers -h
 ```
 
 ## Usage
 ```
-Usage: goresolvers [flag]
+Usage: publicresolvers [flag]
 
   -r,   --resolvers   fetch resolvers.txt             (resolver IP addresses)
   -t,   --trusted     fetch resolvers-trusted.txt     (trusted resolvers from organizations like Cloudflare, Google, etc.)
@@ -30,7 +30,7 @@ Usage: goresolvers [flag]
 ## Library
 
 ```
-go get github.com/root4loot/goresolvers
+go get github.com/root4loot/publicresolvers
 ```
 
 ```go
@@ -38,25 +38,25 @@ package main
 
 import (
 	"fmt"
-	"github.com/root4loot/goresolvers"
+	"github.com/root4loot/publicresolvers"
 )
 
 func main() {
-	resolvers, err := goresolvers.FetchResolvers()
+	resolvers, err := publicresolvers.FetchResolvers()
 	if err != nil {
 		fmt.Println("Error fetching resolvers:", err)
 		return
 	}
 	fmt.Println(resolvers)
 
-	trustedResolvers, err := goresolvers.FetchResolversTrusted()
+	trustedResolvers, err := publicresolvers.FetchResolversTrusted()
 	if err != nil {
 		fmt.Println("Error fetching trusted resolvers:", err)
 		return
 	}
 	fmt.Println(trustedResolvers)
 
-	communityResolvers, err := goresolvers.FetchResolversCommunity()
+	communityResolvers, err := publicresolvers.FetchResolversCommunity()
 	if err != nil {
 		fmt.Println("Error fetching community resolvers:", err)
 		return

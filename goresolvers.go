@@ -1,4 +1,4 @@
-package goresolvers
+package publicresolvers
 
 import (
 	"bufio"
