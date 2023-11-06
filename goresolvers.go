@@ -11,7 +11,7 @@ const (
 	resolversCommunityURL = "https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-community.txt"
 )
 
-func fetchFile(url string) ([]string, error) {
+func fetchFile(url string, includePort bool) ([]string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -21,7 +21,11 @@ func fetchFile(url string) ([]string, error) {
 	scanner := bufio.NewScanner(resp.Body)
 	var lines []string
 	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
+		line := scanner.Text()
+		if includePort {
+			line += ":53"
+		}
+		lines = append(lines, line)
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -31,16 +35,32 @@ func fetchFile(url string) ([]string, error) {
 	return lines, nil
 }
 
-// FetchResolvers fetches the list of resolvers
+// FetchResolvers fetches the list of resolvers from the Trickest Resolvers repository.
 func FetchResolvers() ([]string, error) {
-	return fetchFile(resolversURL)
+	return fetchFile(resolversURL, false)
 }
 
-// FetchResolversTrusted fetches the list of trusted resolvers
+// FetchResolversWithPort fetches the list of resolvers from the Trickest Resolvers repository with port 53 appended.
+func FetchResolversWithPort() ([]string, error) {
+	return fetchFile(resolversURL, true)
+}
+
+// FetchResolversTrusted fetches the list of trusted resolvers from the Trickest Resolvers repository.
 func FetchResolversTrusted() ([]string, error) {
-	return fetchFile(resolversTrustedURL)
+	return fetchFile(resolversTrustedURL, false)
 }
 
+// FetchResolversTrustedWithPort fetches the list of trusted resolvers from the Trickest Resolvers repository with port 53 appended.
+func FetchResolversTrustedWithPort() ([]string, error) {
+	return fetchFile(resolversTrustedURL, true)
+}
+
+// FetchResolversCommunity fetches the list of community resolvers from the Trickest Resolvers repository.
 func FetchResolversCommunity() ([]string, error) {
-	return fetchFile(resolversCommunityURL)
+	return fetchFile(resolversCommunityURL, false)
+}
+
+// FetchResolversCommunityWithPort fetches the list of community resolvers from the Trickest Resolvers repository with port 53 appended.
+func FetchResolversCommunityWithPort() ([]string, error) {
+	return fetchFile(resolversCommunityURL, true)
 }

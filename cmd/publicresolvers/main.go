@@ -25,6 +25,7 @@ func usage() {
 	fmt.Fprintf(w, "  %s,\t%s\t%s\t(%s)\n", "-r", "--resolvers", "fetch resolvers.txt", "resolver IP addresses")
 	fmt.Fprintf(w, "  %s,\t%s\t%s\t(%s)\n", "-t", "--trusted", "fetch resolvers-trusted.txt", "trusted resolvers from organizations like Cloudflare, Google, etc.")
 	fmt.Fprintf(w, "  %s,\t%s\t%s\t(%s)\n", "-c", "--community", "fetch resolvers-community.txt", "resolver IP addresses with community annotations")
+	fmt.Fprintf(w, "  %s,\t%s\t%s\n", "-p", "--with-port", "include port 53 in resolver IP addresses")
 	fmt.Fprintf(w, "  %s,\t%s\t%s\n", "-h", "--help", "display help")
 
 	// flush the tabwriter
@@ -41,7 +42,7 @@ func printList(source func() ([]string, error)) {
 }
 
 func main() {
-	var resolvers, trusted, community, help bool
+	var resolvers, trusted, community, help, withPort bool
 
 	flag.BoolVar(&resolvers, "r", false, "")
 	flag.BoolVar(&resolvers, "resolvers", false, "")
@@ -49,6 +50,8 @@ func main() {
 	flag.BoolVar(&trusted, "trusted", false, "")
 	flag.BoolVar(&community, "c", false, "")
 	flag.BoolVar(&community, "community", false, "")
+	flag.BoolVar(&withPort, "p", false, "")
+	flag.BoolVar(&withPort, "with-port", false, "")
 	flag.BoolVar(&help, "h", false, "")
 	flag.BoolVar(&help, "help", false, "")
 	flag.Parse()
@@ -66,14 +69,27 @@ func main() {
 	}
 
 	if resolvers {
-		printList(publicresolvers.FetchResolvers)
+		if !withPort {
+			printList(publicresolvers.FetchResolvers)
+		} else {
+			printList(publicresolvers.FetchResolversWithPort)
+		}
 	}
 
 	if trusted {
-		printList(publicresolvers.FetchResolversTrusted)
+		if !withPort {
+			printList(publicresolvers.FetchResolversTrusted)
+		} else {
+			printList(publicresolvers.FetchResolversTrustedWithPort)
+		}
 	}
 
 	if community {
-		printList(publicresolvers.FetchResolversCommunity)
+		if !withPort {
+			printList(publicresolvers.FetchResolversCommunity)
+		} else {
+			printList(publicresolvers.FetchResolversCommunityWithPort)
+		}
 	}
+
 }

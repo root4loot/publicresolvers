@@ -1,5 +1,3 @@
-![Go version](https://img.shields.io/badge/Go-v1.19-blue.svg) [![Contribute](https://img.shields.io/badge/Contribute-Welcome-green.svg)](CONTRIBUTING.md)
-
 # publicresolvers
 publicresolvers is a simple Go library and CLI tool for fetching DNS resolver lists from the Trickest Resolvers [repository](https://github.com/trickest/resolvers).
 
@@ -23,7 +21,35 @@ Usage: publicresolvers [flag]
   -r,   --resolvers   fetch resolvers.txt             (resolver IP addresses)
   -t,   --trusted     fetch resolvers-trusted.txt     (trusted resolvers from organizations like Cloudflare, Google, etc.)
   -c,   --community   fetch resolvers-community.txt   (resolver IP addresses with community annotations)
+  -p,   --with-port   include port 53 in resolver IP addresses
   -h,   --help        display help
+```
+
+## Example
+```
+publicresolvers --resolvers
+
+204.74.109.172
+204.69.234.244
+204.106.240.53
+202.65.192.146
+202.65.124.32
+202.63.241.68
+202.129.206.237
+...
+```
+
+```
+publicresolvers --resolvers --with-port
+
+204.74.109.172:53
+204.69.234.244:53
+204.106.240.53:53
+202.65.192.146:53
+202.65.124.32:53
+202.63.241.68:53
+202.129.206.237:53
+...
 ```
 
 
