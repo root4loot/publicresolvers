@@ -6,9 +6,9 @@ import (
 )
 
 const (
-	resolversURL          = "https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt"
-	resolversTrustedURL   = "https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt"
-	resolversCommunityURL = "https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-community.txt"
+	resolversURL          = "https://raw.githubusercontent.com/trickest/resolvers/refs/heads/main/resolvers.txt"
+	resolversTrustedURL   = "https://raw.githubusercontent.com/trickest/resolvers/refs/heads/main/resolvers-trusted.txt"
+	resolversCommunityURL = "https://raw.githubusercontent.com/trickest/resolvers/refs/heads/main/resolvers-community.txt"
 )
 
 func fetchFile(url string, includePort bool) ([]string, error) {
